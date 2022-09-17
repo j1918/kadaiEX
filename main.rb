@@ -5,8 +5,8 @@ require_relative 'ball'
 require_relative 'block'
 
 font = Font.new(24)
-bar = Bar.new(320, 400, nil)
-ball = Ball.new(320 + Bar::BAR_SIZE_X / 2, 400 - Ball::REDIUS, nil)
+bar = Bar.new(270, 400, nil)
+ball = Ball.new(rand(270..270 + Bar::BAR_SIZE_X), 400 - Ball::REDIUS, nil)
 blocks = []
 
 for i in 0..7
@@ -17,6 +17,8 @@ end
 
 $score = 0
 gameover_flag = false
+before_speed = 3
+count = 0
 
 Window.loop do
   font = Font.new(64)
@@ -29,9 +31,11 @@ Window.loop do
 end
 
 Window.loop do
-  if(!gameover_flag)
+  if(!gameover_flag && $score < 400)
+    font = Font.new(24)
     bar.update
     ball.update
+    ball.change_speed
 
     Window.draw_circle_fill(ball.x, ball.y, Ball::REDIUS, C_WHITE)
     Window.draw_box_fill(bar.x, bar.y, bar.x + Bar::BAR_SIZE_X, bar.y + Bar::BAR_SIZE_Y, C_MAGENTA)
@@ -55,6 +59,20 @@ Window.loop do
     ball.hit(bar.x, bar.y)
     Sprite.check(ball, blocks)
     gameover_flag = ball.gameover?
+
+    if(before_speed != ball.speed)
+      count += 1
+    end
+
+    if(count >= 1)
+      Window.draw_font(200, 0, "SPEED UP!!", font)
+      count += 1
+    end
+
+    if(count >= 60)
+      count = 0
+    end
+    before_speed = ball.speed
   elsif($score >= 400)
     font = Font.new(64)
     Window.draw_font(150, 200, "Game Clear!!", font)

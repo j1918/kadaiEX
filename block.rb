@@ -1,5 +1,4 @@
 class Block < Sprite
-    #attr_accessor :score # 追加
     BLOCK_SIZE_X = 80
     BLOCK_SIZE_Y = 20
     def initialize(x, y, image) # 追加

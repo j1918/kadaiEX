@@ -1,18 +1,19 @@
 require_relative 'bar'
 class Ball < Sprite
-    #attr_accessor :score # 追加
+    attr_accessor :speed # 追加
     REDIUS = 12
 
     def initialize(x, y, image) # 追加
-      @x_vector = 2
-      @y_vector = -2
+      @x_vector = 1
+      @y_vector = -1
+      @speed = 3
       self.collision = [self.x, self.y, REDIUS]
       super
     end
   
     def update
-      self.x += @x_vector
-      self.y += @y_vector
+      self.x += @x_vector * @speed
+      self.y += @y_vector * @speed
 
       if(self.x > 640 - REDIUS)
         @x_vector *= -1
@@ -22,6 +23,18 @@ class Ball < Sprite
         @y_vector *= -1
       #elsif(self.y > 480 - REDIUS)
         #@y_vector *= -1
+      end
+    end
+    
+    def change_speed
+      if($score >= 300)
+        @speed = 6
+      elsif($score >= 200)
+        @speed = 5
+      elsif($score >= 50)
+        @speed = 4
+      else
+        @speed = 3
       end
     end
 
@@ -34,7 +47,7 @@ class Ball < Sprite
     end
 
     def hit(x, y)
-      if(self.y + REDIUS > y && self.y + REDIUS < y + 3 && @y_vector > 0)
+      if(self.y + REDIUS > y && self.y + REDIUS < y + @speed + 1 && @y_vector > 0)
         if(self.x > x && self.x < x + Bar::BAR_SIZE_X)
           @y_vector *= -1
         end
