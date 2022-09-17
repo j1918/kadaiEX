@@ -1,10 +1,9 @@
 class Block < Sprite
     #attr_accessor :score # 追加
-  
+    BLOCK_SIZE_X = 80
+    BLOCK_SIZE_Y = 20
     def initialize(x, y, image) # 追加
-      #@score = 0
-      @count = 0
-      @hp = 10
+      self.collision = [self.x, self.y, self.x + BLOCK_SIZE_X, self.y + BLOCK_SIZE_Y] 
       super
     end
   

@@ -1,7 +1,10 @@
 class Bar < Sprite
     #attr_accessor :score # 追加
+    BAR_SIZE_X = 100
+    BAR_SIZE_Y = 20
   
     def initialize(x, y, image) # 追加
+      self.collision = [self.x, self.y, self.x + BAR_SIZE_X, self.y + BAR_SIZE_Y] 
       super
     end
   
