@@ -10,8 +10,8 @@ class Bar < Sprite
   
     def update
       self.x += Input.x * 4
-      if(self.x > 640 - 32)
-        self.x = 640 - 32
+      if(self.x > 640 - BAR_SIZE_X)
+        self.x = 640 - BAR_SIZE_X
       elsif(self.x < 0)
         self.x = 0
       end

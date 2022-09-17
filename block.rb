@@ -18,10 +18,8 @@ class Block < Sprite
       @count += 1
     end
   
-    def shot # 追加
-      if(Input.key_down?(K_SPACE) && @count > 10)
-        $player_bullets << PlayerBullet.new(self.x + 10, self.y, $player_bullet_img)
-        @count = 0
-      end
+    def hit # 追加
+      self.vanish
+      $score += 10
     end
 end
