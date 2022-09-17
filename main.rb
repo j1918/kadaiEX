@@ -4,35 +4,36 @@ require_relative 'bar'
 require_relative 'ball'
 require_relative 'block'
 
+BLOCK_SIZE_X = 80
+BLOCK_SIZE_X = 20
+
 font = Font.new(32)
 bar = Bar.new(320, 400, player_img)
-enemies = []
+blocks = []
 
-score = 0
+for i in 0...7
+    blocks  << Block.new(i * BLOCK_SIZE_X, i * BLOCK_SIZE_y, enemy_img)
+end
 
-timer = 600 + 60 # 追加
+$score = 0
 
 Window.loop do
-  player.update
+  bar.update
+  ball.update
 
   player.draw
   player.shot
 
-  
-  if(enemy_count < 5)
-    $enemies << Enemy.new(rand(0..(640 - 32 - 1)), rand((120 - 32 - 1)), enemy_img)
-  end
 
   enemy_count = 0
 
   Sprite.draw($enemies)
   Sprite.draw($player_bullets)
   Sprite.draw($enemy_bullets)
-  Window.draw_font(10, 0, "スコア：#{$score}", font)
-  Window.draw_font(10, 32, "残り時間：#{timer / 60}秒", font) # 追加
-  Window.draw_font(10, 64, "HP：#{$player_hp}", font) # 追加
+  
+  #Window.draw_font(10, 0, "スコア：#{$score}", font)
+  #Window.draw_font(10, 32, "HP：#{$player_hp}", font) # 追加
 
-  Sprite.check(player, $enemies)
-  Sprite.check($player_bullets, $enemies)
-  Sprite.check(player, $enemy_bullets)
+  Sprite.check(bar, ball)
+  Sprite.check(ball, blocks)
 end
