@@ -24,7 +24,7 @@ Window.loop do
   font = Font.new(64)
   Window.draw_font(170, 200, "ブロック崩し", font)
   font = Font.new(32)
-  Window.draw_font(190, 270, "PRESS ENTER!!", font)
+  Window.draw_font(210, 270, "PRESS ENTER!!", font)
   if(Input.keyDown?(K_RETURN) == true)
     break
   end
