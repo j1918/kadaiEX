@@ -5,8 +5,7 @@ require_relative 'ball'
 require_relative 'block'
 
 font = Font.new(32)
-
-player = Player.new(320, 400, player_img)
+bar = Bar.new(320, 400, player_img)
 enemies = []
 
 score = 0
